@@ -2,7 +2,7 @@ import { ArrowUpRight, Check, Minus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { SectionBadge } from "@/components/SectionBadge";
-import { CONTESTS } from "@/config/matchday";
+import { CONTESTS, GRAND_PRIZE } from "@/config/matchday";
 import { cn } from "@/lib/utils";
 
 export const ContestTiersSection = () => (
@@ -15,8 +15,8 @@ export const ContestTiersSection = () => (
           Start free. Move up when you're ready.
         </h2>
         <p className="text-lg leading-relaxed text-muted-foreground">
-          Both entries score the same way and sit on the same leaderboard. Premium adds more teams,
-          sharper tools, and a prize pool roughly 16× larger.
+          Both entries score the same way. Free pays cash to your e-wallet; premium adds more teams,
+          sharper tools, and puts the signed Inzaghi photo on the line.
         </p>
       </div>
 
@@ -63,34 +63,55 @@ export const ContestTiersSection = () => (
 
             <div
               className={cn(
-                "mb-8 rounded-2xl p-5",
+                "mb-8 flex items-center gap-4 rounded-2xl p-5",
                 contest.highlight ? "bg-white/10" : "bg-muted",
               )}
             >
-              <p
-                className={cn(
-                  "text-xs font-semibold uppercase tracking-[0.16em]",
-                  contest.highlight ? "text-white/60" : "text-muted-foreground",
-                )}
-              >
-                Prize pool
-              </p>
-              <p
-                className={cn(
-                  "tabular mt-1 text-3xl font-black",
-                  contest.highlight ? "text-accent" : "text-foreground",
-                )}
-              >
-                {contest.prizePool}
-              </p>
-              <p
-                className={cn(
-                  "mt-1 text-sm",
-                  contest.highlight ? "text-white/70" : "text-muted-foreground",
-                )}
-              >
-                {contest.prizePoolNote} · {contest.slots}
-              </p>
+              {contest.prizeKind === "item" && (
+                <img
+                  src={GRAND_PRIZE.image}
+                  alt={GRAND_PRIZE.alt}
+                  width={88}
+                  height={120}
+                  loading="lazy"
+                  className="h-[120px] w-[88px] shrink-0 rounded-lg object-cover shadow-lg"
+                />
+              )}
+              <div className="min-w-0">
+                <p
+                  className={cn(
+                    "text-xs font-semibold uppercase tracking-[0.16em]",
+                    contest.highlight ? "text-white/60" : "text-muted-foreground",
+                  )}
+                >
+                  {contest.prizeLabel}
+                </p>
+                <p
+                  className={cn(
+                    "mt-1 font-black",
+                    contest.prizeKind === "item" ? "text-xl leading-tight" : "tabular text-3xl",
+                    contest.highlight ? "text-accent" : "text-foreground",
+                  )}
+                >
+                  {contest.prizeHeadline}
+                </p>
+                <p
+                  className={cn(
+                    "mt-1 text-sm",
+                    contest.highlight ? "text-white/70" : "text-muted-foreground",
+                  )}
+                >
+                  {contest.prizeNote}
+                </p>
+                <p
+                  className={cn(
+                    "mt-1 text-sm",
+                    contest.highlight ? "text-white/70" : "text-muted-foreground",
+                  )}
+                >
+                  {contest.slots}
+                </p>
+              </div>
             </div>
 
             <ul className="mb-8 flex-1 space-y-3.5">

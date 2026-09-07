@@ -1,17 +1,15 @@
 import { ArrowUpRight, Trophy, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CountdownTimer } from "@/components/CountdownTimer";
-import { useCountUp } from "@/hooks/useCountUp";
-import { useInView } from "@/hooks/useInView";
 import {
   CTA_PRIMARY,
   CTA_SECONDARY,
   ENTRIES_TAKEN,
   ENTRIES_TOTAL,
   FEATURED_MATCH,
+  GRAND_PRIZE,
   LEADERBOARD,
   PLAYERS_ENTERED_TODAY,
-  PRIZE_POOL_USD,
 } from "@/config/matchday";
 import member1 from "@/assets/member-1.jpg";
 import member2 from "@/assets/member-2.jpg";
@@ -27,8 +25,6 @@ const HERO_IMAGE = "/hero-matchday.jpg";
 const AVATARS = [member1, member2, member3];
 
 export const HeroSection = ({ kickoff }: HeroSectionProps) => {
-  const { ref, inView } = useInView<HTMLDivElement>("0px");
-  const prizePool = useCountUp(PRIZE_POOL_USD, inView);
   const slotsLeft = ENTRIES_TOTAL - ENTRIES_TAKEN;
   const filledPercent = Math.round((ENTRIES_TAKEN / ENTRIES_TOTAL) * 100);
 
@@ -45,7 +41,7 @@ export const HeroSection = ({ kickoff }: HeroSectionProps) => {
         <div className="absolute inset-0 bg-gradient-hero" />
       </div>
 
-      <div ref={ref} className="section-x relative z-10 pb-16 pt-28 md:pb-24 md:pt-36">
+      <div className="section-x relative z-10 pb-16 pt-28 md:pb-24 md:pt-36">
         <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
           {/* Left — the pitch */}
           <div>
@@ -65,8 +61,8 @@ export const HeroSection = ({ kickoff }: HeroSectionProps) => {
             </h1>
 
             <p className="mb-8 max-w-xl text-lg leading-relaxed text-white/85 md:text-xl">
-              Join this week's featured contest, climb the leaderboard, and unlock bigger prize
-              pools with premium entries.
+              Join this week's featured contest, climb the leaderboard, and play for a signed
+              Filippo Inzaghi photo with a premium entry.
             </p>
 
             <div className="mb-8 max-w-lg">
@@ -120,16 +116,27 @@ export const HeroSection = ({ kickoff }: HeroSectionProps) => {
             </div>
           </div>
 
-          {/* Right — prize pool + live leaderboard */}
+          {/* Right — grand prize + live leaderboard */}
           <div className="animate-fade-in rounded-3xl border border-white/15 bg-white/10 p-5 shadow-purple backdrop-blur-xl sm:p-7">
-            <div className="mb-6 rounded-2xl bg-gradient-purple p-5 text-center sm:p-6">
-              <p className="mb-1 text-xs font-semibold uppercase tracking-[0.18em] text-white/70">
-                This week's prize pool
-              </p>
-              <p className="tabular text-4xl font-black leading-none text-accent sm:text-5xl">
-                ${prizePool.toLocaleString("en-US")}
-              </p>
-              <p className="mt-2 text-sm text-white/70">Paid out within 72 hours of full time</p>
+            <div className="mb-6 flex items-center gap-4 rounded-2xl bg-gradient-purple p-4 sm:p-5">
+              <img
+                src={GRAND_PRIZE.image}
+                alt={GRAND_PRIZE.alt}
+                width={96}
+                height={130}
+                className="h-[104px] w-[78px] shrink-0 rounded-lg object-cover shadow-lg sm:h-[130px] sm:w-24"
+              />
+              <div className="min-w-0">
+                <p className="mb-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-white/70">
+                  This week's grand prize
+                </p>
+                <p className="text-xl font-black leading-tight text-accent sm:text-2xl">
+                  {GRAND_PRIZE.name}
+                </p>
+                <p className="mt-1.5 text-sm text-white/70">
+                  {GRAND_PRIZE.subtitle} · one winner
+                </p>
+              </div>
             </div>
 
             <div className="mb-4 flex items-center justify-between">
@@ -163,7 +170,9 @@ export const HeroSection = ({ kickoff }: HeroSectionProps) => {
                   </div>
                   <div className="text-right">
                     <p className="tabular text-sm font-bold text-white">{entry.points}</p>
-                    <p className="text-xs font-medium text-accent">{entry.prize}</p>
+                    {entry.prize && (
+                      <p className="text-xs font-medium text-accent">{entry.prize}</p>
+                    )}
                   </div>
                 </li>
               ))}

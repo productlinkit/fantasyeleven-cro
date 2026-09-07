@@ -3,7 +3,12 @@ import { Button } from "@/components/ui/button";
 import { SectionBadge } from "@/components/SectionBadge";
 import { useCountUp } from "@/hooks/useCountUp";
 import { useInView } from "@/hooks/useInView";
-import { CTA_LEADERBOARD, CURRENT_USER, LEADERBOARD } from "@/config/matchday";
+import {
+  CTA_LEADERBOARD,
+  CURRENT_USER,
+  FREE_PRIZE_USD,
+  LEADERBOARD,
+} from "@/config/matchday";
 
 const RANK_STYLES: Record<number, string> = {
   1: "bg-accent text-accent-foreground",
@@ -71,7 +76,9 @@ export const LeaderboardSection = () => {
                       {entry.points.toLocaleString("en-US")}
                       <span className="ml-1 text-xs font-normal text-white/45">pts</span>
                     </p>
-                    <p className="text-sm font-semibold text-accent">{entry.prize}</p>
+                    {entry.prize && (
+                      <p className="text-sm font-semibold text-accent">{entry.prize}</p>
+                    )}
                   </div>
                 </li>
               ))}
@@ -137,9 +144,16 @@ export const LeaderboardSection = () => {
 
             <div className="rounded-3xl border border-accent/25 bg-accent/10 p-7">
               <Medal className="mb-4 h-8 w-8 text-accent" aria-hidden="true" />
-              <p className="mb-5 text-lg font-semibold leading-snug">
-                The top 50 all get paid. Right now that line sits at{" "}
-                <span className="tabular text-accent">982 pts</span>.
+              <p className="mb-2 text-lg font-semibold leading-snug">
+                Top of this board takes the signed Inzaghi. Right now that's{" "}
+                <span className="tabular text-accent">
+                  {LEADERBOARD[0].points.toLocaleString("en-US")} pts
+                </span>
+                .
+              </p>
+              <p className="mb-5 text-sm text-white/60">
+                Playing free instead? The free board pays ${FREE_PRIZE_USD} to its top 10,
+                straight to your e-wallet.
               </p>
               <Button
                 asChild

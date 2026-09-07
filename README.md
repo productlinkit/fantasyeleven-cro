@@ -15,7 +15,7 @@ npm run preview
 ## Where to change things
 
 **`src/config/matchday.ts` is the only file you need for a copy or pricing experiment.**
-Headlines, CTA labels, prize pools, contest features, leaderboard rows, rewards, fairness
+Headlines, CTA labels, prizes, contest features, leaderboard rows, rewards, fairness
 points and FAQs all live there. A variant should be a diff on that file alone.
 
 Kickoff time comes from `getNextKickoff()` in the same file. It currently resolves to the
@@ -33,7 +33,7 @@ Every timer on the page is fed the same `Date` from `App.tsx`, so they never dri
 | # | Section | File |
 |---|---------|------|
 | — | Sticky header, mini countdown appears on scroll | `components/Header.tsx` |
-| 1 | Hero — urgency headline, live countdown, prize pool, leaderboard, scarcity | `components/HeroSection.tsx` |
+| 1 | Hero — urgency headline, live countdown, grand prize, leaderboard, scarcity | `components/HeroSection.tsx` |
 | 2 | Contest tiers, Free vs Premium | `components/ContestTiersSection.tsx` |
 | 3 | Leaderboard + "points to next rank" progress | `components/LeaderboardSection.tsx` |
 | 4 | Rewards showcase | `components/RewardsSection.tsx` |
@@ -59,6 +59,9 @@ Never hardcode a hex in a component — add a token instead.
 
 - `hero-matchday.jpg` sits in `public/` (not `src/assets/`) so `index.html` can `preload` it.
   It is the LCP element; keep it there.
+- `public/prize-inzaghi.jpg` is the premium grand prize photo, referenced from
+  `GRAND_PRIZE.image` in the config and rendered in the hero, the premium tier card and
+  the rewards section. Swapping that one file changes the prize everywhere.
 - Source images were recompressed from the main LP (hero 1.6 MB → 275 KB, CTA 1.7 MB → 307 KB).
 - The page is `noindex` — it is a post-signup destination, not an acquisition page.
 - Reduced-motion is respected: the count-up, countdown pulse and progress fills all fall back

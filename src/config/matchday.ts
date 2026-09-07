@@ -36,7 +36,22 @@ export const FEATURED_MATCH = {
   venue: "Emirates Stadium",
 };
 
-export const PRIZE_POOL_USD = 2_650;
+/**
+ * Premium's grand prize is a physical item, not a cash pool.
+ * Swap `image` for a new photo and the hero, rewards and leaderboard all follow.
+ */
+export const GRAND_PRIZE = {
+  name: "Signed Filippo Inzaghi photo",
+  subtitle: "Athens 2007 · framed",
+  detail:
+    "The Champions League final trophy lift, hand-signed by Inzaghi in black ink, framed and authenticated by Icons.com.",
+  image: "/prize-inzaghi.jpg",
+  alt: "Framed photograph of Filippo Inzaghi kissing the 2007 Champions League trophy, hand-signed in black ink",
+};
+
+/** Free contest pays cash straight to the winner's e-wallet. */
+export const FREE_PRIZE_USD = 150;
+
 export const ENTRIES_TOTAL = 5_000;
 export const ENTRIES_TAKEN = 4_213;
 export const PLAYERS_ENTERED_TODAY = 1_284;
@@ -48,8 +63,10 @@ export const CONTESTS = [
     tagline: "Build confidence first",
     price: "$0",
     priceNote: "Free, always",
-    prizePool: "$150",
-    prizePoolNote: "shared across the top 10",
+    prizeKind: "cash",
+    prizeLabel: "Prize",
+    prizeHeadline: "$150",
+    prizeNote: "straight to your e-wallet · split across the top 10",
     slots: "Unlimited slots",
     highlight: false,
     cta: CTA_SECONDARY,
@@ -66,11 +83,13 @@ export const CONTESTS = [
   {
     id: "premium",
     name: "Premium Entry",
-    tagline: "This week's biggest prize pool",
+    tagline: "One winner takes the signed photo",
     price: "$2.49",
     priceNote: "per entry · or 250 coins",
-    prizePool: "$2,500",
-    prizePoolNote: "shared across the top 50",
+    prizeKind: "item",
+    prizeLabel: "Grand prize",
+    prizeHeadline: "Signed Filippo Inzaghi photo",
+    prizeNote: "framed & authenticated · shipped to the winner",
     slots: "787 slots left",
     highlight: true,
     cta: CTA_PRIMARY,
@@ -86,12 +105,13 @@ export const CONTESTS = [
   },
 ] as const;
 
+/** Only the top of the premium board wins the signed photo — `prize` marks that row. */
 export const LEADERBOARD = [
-  { rank: 1, name: "Rizky Ananda", handle: "@rizkyfpl", points: 1284, prize: "$900" },
-  { rank: 2, name: "Sarah Kim", handle: "@sarahkim", points: 1251, prize: "$480" },
-  { rank: 3, name: "Ahmed Patel", handle: "@apatel11", points: 1230, prize: "$300" },
-  { rank: 4, name: "Marcus Rodriguez", handle: "@marcusrod", points: 1198, prize: "$150" },
-  { rank: 5, name: "Laura Chen", handle: "@laurac", points: 1176, prize: "$90" },
+  { rank: 1, name: "Rizky Ananda", handle: "@rizkyfpl", points: 1284, prize: "Signed photo" },
+  { rank: 2, name: "Sarah Kim", handle: "@sarahkim", points: 1251, prize: null },
+  { rank: 3, name: "Ahmed Patel", handle: "@apatel11", points: 1230, prize: null },
+  { rank: 4, name: "Marcus Rodriguez", handle: "@marcusrod", points: 1198, prize: null },
+  { rank: 5, name: "Laura Chen", handle: "@laurac", points: 1176, prize: null },
 ];
 
 /** The visitor's own standing — comes from the session in production. */
@@ -104,16 +124,16 @@ export const CURRENT_USER = {
 
 export const REWARDS = [
   {
-    amount: "$2,500",
-    title: "Cash, paid out in 72 hours",
+    amount: "1 of 1",
+    title: "Signed & framed Inzaghi photo",
     description:
-      "Split across the top 50 finishers every matchweek. Straight to your bank or e-wallet once final scores are verified — no withdrawal fee.",
+      "The premium grand prize. Hand-signed, framed, authenticated by Icons.com, and shipped to the winner — there is exactly one.",
   },
   {
-    amount: "120+ items",
-    title: "Official jerseys & merch",
+    amount: "$150",
+    title: "Cash to your e-wallet",
     description:
-      "Authentic club shirts, match balls, and limited-edition Fantasy Eleven drops for weekly winners.",
+      "The free contest still pays real money. Split across the top 10 and sent to your e-wallet within 72 hours of full time — no withdrawal fee.",
   },
   {
     amount: "2,500 coins",
@@ -163,11 +183,11 @@ export const FAQS = [
   },
   {
     q: "Do I have to pay to win anything?",
-    a: "No. The free contest carries its own $150 prize pool. A premium entry unlocks a far bigger pool and lets you run up to five teams, but free contests still pay real money.",
+    a: "No. The free contest pays $150 to the top 10, straight to your e-wallet. A premium entry is what puts you in the running for the signed Inzaghi photo and lets you run up to five teams — but free contests still pay real money.",
   },
   {
     q: "How do payouts work?",
-    a: "Straight to your registered bank account or e-wallet within 72 hours of the contest closing and final scores being verified. There's no withdrawal fee.",
+    a: "Cash prizes go to your registered e-wallet within 72 hours of the contest closing and final scores being verified — no withdrawal fee. The signed photo is shipped insured to the address on your account, and we cover delivery.",
   },
   {
     q: "Can I back out after paying for an entry?",
