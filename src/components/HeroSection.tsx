@@ -1,6 +1,7 @@
-import { ArrowUpRight, Trophy, Users } from "lucide-react";
+import { ArrowUpRight, Maximize2, Sparkles, Trophy, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CountdownTimer } from "@/components/CountdownTimer";
+import { PrizeLightbox } from "@/components/PrizeLightbox";
 import {
   CTA_PRIMARY,
   CTA_SECONDARY,
@@ -118,24 +119,48 @@ export const HeroSection = ({ kickoff }: HeroSectionProps) => {
 
           {/* Right — grand prize + live leaderboard */}
           <div className="animate-fade-in rounded-3xl border border-white/15 bg-white/10 p-5 shadow-purple backdrop-blur-xl sm:p-7">
-            <div className="mb-6 flex items-center gap-4 rounded-2xl bg-gradient-purple p-4 sm:p-5">
-              <img
-                src={GRAND_PRIZE.image}
-                alt={GRAND_PRIZE.alt}
-                width={96}
-                height={130}
-                className="h-[104px] w-[78px] shrink-0 rounded-lg object-cover shadow-lg sm:h-[130px] sm:w-24"
+            {/* Display case — dark and lit, so the prize reads as an object against the purple */}
+            <div className="relative mb-6 overflow-hidden rounded-2xl bg-gradient-dark p-4 sm:p-5">
+              <div
+                className="pointer-events-none absolute -top-16 left-1/2 h-48 w-64 -translate-x-1/2 rounded-full bg-accent/25 blur-3xl"
+                aria-hidden="true"
               />
-              <div className="min-w-0">
-                <p className="mb-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-white/70">
-                  This week's grand prize
-                </p>
-                <p className="text-xl font-black leading-tight text-accent sm:text-2xl">
-                  {GRAND_PRIZE.name}
-                </p>
-                <p className="mt-1.5 text-sm text-white/70">
-                  {GRAND_PRIZE.subtitle} · one winner
-                </p>
+
+              <div className="relative flex items-center gap-4 sm:gap-5">
+                <PrizeLightbox className="shrink-0 rounded-lg">
+                  <img
+                    src={GRAND_PRIZE.image}
+                    alt={GRAND_PRIZE.alt}
+                    width={120}
+                    height={160}
+                    className="h-[128px] w-24 rounded-lg object-cover shadow-2xl ring-1 ring-white/15 transition-transform duration-300 group-hover:scale-[1.03] sm:h-[160px] sm:w-[120px]"
+                  />
+                </PrizeLightbox>
+
+                <div className="min-w-0">
+                  <span className="mb-2.5 inline-flex items-center gap-1.5 rounded-full bg-accent px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-accent-foreground">
+                    <Sparkles className="h-3 w-3" aria-hidden="true" />
+                    1 of 1
+                  </span>
+                  <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/50">
+                    This week's grand prize
+                  </p>
+                  <p className="text-xl font-black leading-tight text-accent sm:text-2xl">
+                    {GRAND_PRIZE.name}
+                  </p>
+                  <p className="mt-1 text-sm text-white/60">{GRAND_PRIZE.subtitle}</p>
+
+                  <PrizeLightbox
+                    className="mt-3 rounded-md"
+                    overlay={false}
+                    label="View the signed Filippo Inzaghi photo full size"
+                  >
+                    <span className="flex items-center gap-1.5 text-sm font-semibold text-white underline decoration-accent decoration-2 underline-offset-4">
+                      <Maximize2 className="h-3.5 w-3.5" aria-hidden="true" />
+                      View the photo
+                    </span>
+                  </PrizeLightbox>
+                </div>
               </div>
             </div>
 

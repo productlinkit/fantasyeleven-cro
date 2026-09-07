@@ -40,6 +40,7 @@ Every timer on the page is fed the same `Date` from `App.tsx`, so they never dri
 | 5 | Fairness / skill-based trust + objection FAQs | `components/FairnessSection.tsx` |
 | 6 | Final CTA banner with the countdown repeated | `components/FinalCTASection.tsx` |
 | — | Sticky mobile CTA bar, appears past the hero | `components/StickyMobileCTA.tsx` |
+| — | Full-size prize photo overlay, used from the hero and the rewards section | `components/PrizeLightbox.tsx` |
 
 ## Design system
 
@@ -61,7 +62,8 @@ Never hardcode a hex in a component — add a token instead.
   It is the LCP element; keep it there.
 - `public/prize-inzaghi.jpg` is the premium grand prize photo, referenced from
   `GRAND_PRIZE.image` in the config and rendered in the hero, the premium tier card and
-  the rewards section. Swapping that one file changes the prize everywhere.
+  the rewards section. Swapping that one file changes the prize everywhere — including the
+  lightbox, which reads the same constant.
 - Source images were recompressed from the main LP (hero 1.6 MB → 275 KB, CTA 1.7 MB → 307 KB).
 - The page is `noindex` — it is a post-signup destination, not an acquisition page.
 - Reduced-motion is respected: the count-up, countdown pulse and progress fills all fall back

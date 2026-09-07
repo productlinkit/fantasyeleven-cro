@@ -1,4 +1,6 @@
+import { Maximize2 } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { PrizeLightbox } from "@/components/PrizeLightbox";
 import { SectionBadge } from "@/components/SectionBadge";
 import { GRAND_PRIZE, REWARDS } from "@/config/matchday";
 
@@ -20,12 +22,14 @@ export const RewardsSection = () => (
       <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
         {/* The prize itself, shown at size — this is the thing being played for */}
         <Card className="overflow-hidden rounded-3xl border-0 bg-gradient-dark p-6 shadow-card sm:p-8">
-          <img
-            src={GRAND_PRIZE.image}
-            alt={GRAND_PRIZE.alt}
-            loading="lazy"
-            className="mx-auto w-full max-w-sm rounded-xl object-contain shadow-2xl"
-          />
+          <PrizeLightbox className="mx-auto w-full max-w-sm rounded-xl">
+            <img
+              src={GRAND_PRIZE.image}
+              alt={GRAND_PRIZE.alt}
+              loading="lazy"
+              className="w-full rounded-xl object-contain shadow-2xl transition-transform duration-300 group-hover:scale-[1.02]"
+            />
+          </PrizeLightbox>
           <div className="mt-7 text-center">
             <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
               Premium grand prize · 1 of 1
@@ -33,9 +37,15 @@ export const RewardsSection = () => (
             <p className="mb-3 text-2xl font-black leading-tight text-white md:text-3xl">
               {GRAND_PRIZE.name}
             </p>
-            <p className="mx-auto max-w-md text-sm leading-relaxed text-white/70">
+            <p className="mx-auto mb-5 max-w-md text-sm leading-relaxed text-white/70">
               {GRAND_PRIZE.detail}
             </p>
+            <PrizeLightbox className="mx-auto rounded-md" overlay={false}>
+              <span className="flex items-center gap-1.5 text-sm font-semibold text-white underline decoration-accent decoration-2 underline-offset-4">
+                <Maximize2 className="h-3.5 w-3.5" aria-hidden="true" />
+                View the photo full size
+              </span>
+            </PrizeLightbox>
           </div>
         </Card>
 
